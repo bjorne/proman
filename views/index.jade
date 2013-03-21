@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  div(ng-controller="ConfigCtrl")
+    h1 ProMan
+    .loading(ng-show="loading") Loading...
+    h2 Proxies
+    a(ng-click="addProxy()", href="#") +
+    ul.list.proxies
+      li(ng-repeat="(index, proxy) in proxies", ng-class="{ editing: proxy == editedProxy, active: selectedProxy == index }")
+        .view
+          input.toggle.radio(type="radio", name="proxy", ng-model="selectedProxy", value="{{index}}", ng-change="selectProxy(index)")
+          label(ng-dblclick="editProxy(proxy)")
+            {{proxy.name}}
+            span.url {{proxy.url}}
+          button.destroy(ng-click="removeProxy(proxy)")
+        form(ng-submit="doneEditingProxy(proxy)")
+          input.edit(ng-model="proxy.name", proman-focus="proxy == editedProxy")
+          input.edit(ng-model="proxy.url", proman-blur="doneEditingProxy(proxy)")
+          input(type="submit", value="foo", style="visibility: hidden")
+        
+    h2 Hosts
+    a(ng-click="addHost()", href="#") +
+    ul.list.hosts
+      li(ng-repeat="host in hosts", ng-class="{ editing: host == editedHost, active: host.active }")
+        .view(ng-click="toggleHost(host)")
+          input.toggle(type="checkbox", ng-model="host.active")
+          label(ng-dblclick="editHost(host)") {{host.value}}
+          button.destroy(ng-click="removeHost(host)")
+        form(ng-submit="doneEditing(host)")
+          input.edit(ng-model="host.value", proman-blur="doneEditing(host)", proman-focus="host == editedHost")
+          
+  
