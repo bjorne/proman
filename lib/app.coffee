@@ -43,7 +43,7 @@ app.configure 'development', ->
   app.use(express.errorHandler())
 
 app.get '/', (req, res) ->
-  res.render('index', { title: 'Express', proxies: ['None', 'Charles'], hosts: ['foo', 'bar', 'baz'] })
+  res.render('index', { proxies: ['None', 'Charles'], hosts: ['foo', 'bar', 'baz'] })
 
 app.get '/config.json', (req, res) ->
   Config.read (err, data) ->
