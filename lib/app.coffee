@@ -59,12 +59,11 @@ app.post '/config.json', (req, res) ->
 
 template = """
 function FindProxyForURL(url, host) {
+  if (_HOSTS_) {
+    return "PROXY _PROXY_; DIRECT;"
+  }
 
-if (_HOSTS_) {
-  return "PROXY _PROXY_; DIRECT;"
-}
-
-return "DIRECT";
+  return "DIRECT";
 }
 """
 
