@@ -78,5 +78,5 @@ app.get '/proxy.pac', (req, res) ->
     res.end template.replace('_HOSTS_', hosts).replace('_PROXY_', config.proxies[config.selectedProxy].url)
 
 http.createServer(app).listen app.get('port'), ->
-  console.log("Express server listening on port " + app.get('port'))
+  console.log("ProMan server listening on port " + app.get('port'))
   setProxy()
